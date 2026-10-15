@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Clickable : MonoBehaviour
 {
+    DiceBag bag;
 
     // This variable is marked as `static`, which means it is
     // accessible by any script, anywhere! They can just write
@@ -19,7 +20,7 @@ public class Clickable : MonoBehaviour
     /// </summary>
     private void OnMouseDown()
     {
-        Clicks += 1;  // add one point
+        Clicks += bag.roll();  // rolls all the dice in the bag, and then adds to Clicks
     }
 
 }
