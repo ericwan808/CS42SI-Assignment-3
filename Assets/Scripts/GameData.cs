@@ -2,85 +2,126 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// A single die. Create one with the number of sides you want: new Die(6), new Die(20), etc.
+/// Global dice container. Static, so it is NOT attached to any GameObject.
+/// Internally a dictionary of { value, amount }:
+///   value  = number of sides on the die (6 = a d6)
+///   amount = how many of that die are in the bag
+/// Starts with { 1, 1 }: one die with value 1.
 /// </summary>
-public class Die
+public static class DiceBag
 {
-    public int Sides;
-
-    public Die(int sides)
+    private static Dictionary<int, int> dice = new Dictionary<int, int>
     {
-        Sides = sides;
+        { 1, 1 }
+    };
+
+    // Rolls every die in the bag and returns the total.
+    // An empty bag rolls 0.
+    //   int result = DiceBag.Roll();
+    public static int Roll()
+    {
+        int total = 0;
+        foreach (KeyValuePair<int, int> pair in dice)
+        {
+            int value = pair.Key;    // sides on the die
+            int amount = pair.Value; // how many of them
+            for (int i = 0; i < amount; i++)
+            {
+                total += Random.Range(1, value + 1); // int upper bound is exclusive
+            }
+        }
+        return total;
     }
 
-    // Returns a random number from 1 to Sides (inclusive).
-    public int Roll()
+    // Adds one die with the given value to the bag.
+    // Values below 1 are ignored.
+    //   DiceBag.AddDice(6);   // add a d6
+    //   DiceBag.AddDice(20);  // add a d20
+    public static void AddDice(int val)
     {
-        return Random.Range(1, Sides + 1);
+        if (val < 1) return;
+
+        if (dice.ContainsKey(val))
+            dice[val] += 1;
+        else
+            dice[val] = 1;
+    }
+
+    // Removes one die with the given value from the bag.
+    // Returns true if a die was removed, false if you didn't own one.
+    // When the last die of a value is removed, its entry is deleted.
+    //   if (DiceBag.RemoveDice(6)) { /* lost a d6 */ }
+    public static bool RemoveDice(int val)
+    {
+        if (!dice.TryGetValue(val, out int amount)) return false;
+
+        if (amount <= 1)
+            dice.Remove(val);
+        else
+            dice[val] = amount - 1;
+
+        return true;
+    }
+
+    // Returns how many dice of the given value are in the bag (0 if none).
+    //   int d6s = DiceBag.GetCount(6);
+    //   if (DiceBag.GetCount(20) >= 2) { /* has two d20s */ }
+    public static int GetCount(int val)
+    {
+        return dice.TryGetValue(val, out int amount) ? amount : 0;
+    }
+
+    // Empties the bag completely (no dice at all).
+    //   DiceBag.Clear();
+    public static void Clear()
+    {
+        dice.Clear();
+    }
+
+    // Restores the starting state: just { 1, 1 }.
+    // Call this when a new game begins.
+    //   DiceBag.Reset();
+    public static void Reset()
+    {
+        dice.Clear();
+        dice[1] = 1;
     }
 }
 
 /// <summary>
-/// Global game data. Static, so it is NOT attached to any GameObject.
-/// Access anything here from any script with: GameData.<Name>
+/// Global score holder. Static, so it is NOT attached to any GameObject.
 /// </summary>
-public static class GameData
+public static class Score
 {
-    // ---------------------------------------------------------------
-    // SCORE: the player's current score for this run.
-    //
-    // Usage from another script:
-    //   GameData.Score += 10;                       // add points
-    //   Debug.Log("Score: " + GameData.Score);      // read it
-    //   scoreText.text = "Score: " + GameData.Score;
-    // ---------------------------------------------------------------
-    public static int Score = 0;
+    private static int value = 0;
 
-    // ---------------------------------------------------------------
-    // HIGHSCORE: the best score ever reached. Saved with PlayerPrefs,
-    // so it survives closing the game (unlike Score and DiceBag).
-    //
-    // Usage from another script:
-    //   if (GameData.Score > GameData.HighScore)
-    //       GameData.HighScore = GameData.Score;    // set a new record
-    //
-    //   Debug.Log("Best: " + GameData.HighScore);   // read it
-    // ---------------------------------------------------------------
-    public static int HighScore
+    // Returns the current score.
+    //   int current = Score.GetVal();
+    //   scoreText.text = "Score: " + Score.GetVal();
+    public static int GetVal()
     {
-        get { return PlayerPrefs.GetInt("HighScore", 0); }
-        set
-        {
-            PlayerPrefs.SetInt("HighScore", value);
-            PlayerPrefs.Save();
-        }
+        return value;
     }
 
-    // ---------------------------------------------------------------
-    // DICEBAG: a list holding every die the player owns.
-    //
-    // Usage from another script:
-    //   GameData.DiceBag.Add(new Die(6));           // pick up a d6
-    //   GameData.DiceBag.Add(new Die(20));          // pick up a d20
-    //
-    //   // Roll every die in the bag and total the results:
-    //   int total = 0;
-    //   foreach (Die die in GameData.DiceBag)
-    //       total += die.Roll();
-    //
-    //   Debug.Log("Dice owned: " + GameData.DiceBag.Count);
-    //   GameData.DiceBag.RemoveAt(0);               // remove the first die
-    // ---------------------------------------------------------------
-    public static List<Die> DiceBag = new List<Die>();
+    // Sets the score to a new value.
+    //   Score.SetVal(100);
+    public static void SetVal(int newVal)
+    {
+        value = newVal;
+    }
 
-    // ---------------------------------------------------------------
-    // Call this when a new game starts (e.g. in Start() of your first
-    // scene): GameData.Reset();
-    // HighScore is intentionally NOT reset.
-    // ---------------------------------------------------------------
+    // Adds (or subtracts, if negative) points to the score.
+    //   Score.AddVal(10);
+    //   Score.AddVal(DiceBag.Roll());
+    public static void AddVal(int amount)
+    {
+        value += amount;
+    }
+
+    // Sets the score back to 0. Call this when a new game begins.
+    //   Score.Reset();
     public static void Reset()
     {
-        Score = 0;
-        DiceBag.Clear();
+        value = 0;
     }
-}
+}}
