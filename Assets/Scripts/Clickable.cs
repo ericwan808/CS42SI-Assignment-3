@@ -5,8 +5,7 @@ using UnityEngine.SocialPlatforms.Impl;
 
 public class Clickable : MonoBehaviour
 {
-    DiceBag bag;
-    Score score;
+    public DiceBagScript bag;
 
     // This variable is marked as `static`, which means it is
     // accessible by any script, anywhere! They can just write
@@ -22,8 +21,7 @@ public class Clickable : MonoBehaviour
     /// </summary>
     private void OnMouseDown()
     {
-        int newScore = score.getVal() + bag.roll(); //rolls all the dice in the bag
-        score.setVal(newScore);  // adds the rolled values to the score
+        Clicks += bag.Roll();
     }
 
 }
