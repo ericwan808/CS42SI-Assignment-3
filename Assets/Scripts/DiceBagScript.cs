@@ -4,27 +4,35 @@ using UnityEngine;
 public class DiceBagScript : MonoBehaviour
 {
 
-    private Dictionary<int, int> dice;
+    public Sprite largestDice;
+    public Sprite D1;
+    public Sprite D4;
+    public Sprite D6;
+    public Sprite D8;
+    public Sprite D12;
+    public Sprite D20;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-         dice = new Dictionary<int, int>{ { 1, 1 } };
-    }
+    private Dictionary<int, (int num, Sprite sprite)> dice;
 
-    // Update is called once per frame
-    void Update()
+
+    void Awake()
     {
-        
+        dice = new Dictionary<int, (int num, Sprite sprite)> {
+            { 1, (1, D1)},
+            { 4, (0, D4)},
+            { 6, (0, D6)},
+            { 8, (0, D8)},
+            { 12, (0, D12)},
+            { 20, (0, D20)}};
     }
 
     public int Roll()
     {
         int total = 0;
-        foreach (KeyValuePair<int, int> pair in dice)
+        foreach (KeyValuePair<int, (int, Sprite)> pair in dice)
         {
             int value = pair.Key;    // sides on the die
-            int amount = pair.Value; // how many of them
+            int amount = pair.Value.Item1; // how many of them
             for (int i = 0; i < amount; i++)
             {
                 total += Random.Range(1, value + 1); // int upper bound is exclusive
@@ -42,8 +50,23 @@ public class DiceBagScript : MonoBehaviour
         if (val < 1) return;
 
         if (dice.ContainsKey(val))
-            dice[val] += 1;
-        else
-            dice[val] = 1;
+        {
+            if (dice[val].num == 0)
+            {
+                largestDice = dice[val].sprite;
+            }
+            dice[val] = (dice[val].num + 1, dice[val].sprite);
+        }
+    }
+
+    public Sprite getSprite(int val)
+    {
+        if (dice.ContainsKey(val))
+        {
+            return dice[val].sprite;
+        } else
+        {
+            return dice[0].sprite;
+        }
     }
 }

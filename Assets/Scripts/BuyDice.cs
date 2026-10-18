@@ -1,18 +1,27 @@
-using UnityEditor.Experimental.GraphView;
+using System;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class BuyDice : MonoBehaviour
 {
     public int diceValue;
-    public int price;
+    public double price;
     public DiceBagScript bag;
     private Button button;
+
+    public TextMeshProUGUI priceText;
+    public Image diceSprite;
+    
+    
 
     void Awake()
     {
         button = GetComponent<Button>();
         button.onClick.AddListener(OnButtonClicked);
+
+        priceText = transform.Find("Label").GetComponent<TextMeshProUGUI>();
+        diceSprite = transform.Find("Icon").GetComponent<Image>();
     }
 
     void OnDestroy()
@@ -28,6 +37,8 @@ public class BuyDice : MonoBehaviour
         string hex = canAfford ? "#00FF0B" : "#FF0000";
         if (ColorUtility.TryParseHtmlString(hex, out Color c))
             button.image.color = c;
+
+        priceText.text = $"D{diceValue}:{price:C}";
     }
 
     private void OnButtonClicked()
@@ -36,6 +47,7 @@ public class BuyDice : MonoBehaviour
         {
             Clickable.Clicks -= price;
             bag.AddDice(diceValue);
+            price = Math.Round( Math.Pow(price, 1.05), 2 );
         }
     }
 }

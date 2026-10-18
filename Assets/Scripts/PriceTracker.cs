@@ -20,6 +20,6 @@ public class PriceTracker : MonoBehaviour
     {
         // See how many clicks the player has, stored in the static
         // variable `Clickable.Clicks`.
-        _trackingText.text = "D" + LinkedButton.diceValue + ":" + LinkedButton.price;
+        _trackingText.text = $"D{LinkedButton.diceValue}:{LinkedButton.price:C}";
     }
 }
