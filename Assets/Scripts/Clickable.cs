@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SocialPlatforms.Impl;
 
@@ -15,12 +16,19 @@ public class Clickable : MonoBehaviour
     // object titled `Tracker Text (TMP)`.
     public static double Clicks = 0;
 
+    
+    public void updateSprite(Sprite newSprite)
+    {
+        GetComponent<SpriteRenderer>().sprite = newSprite;
+    }
+
     /// <summary>
     /// This function is called when the mouse button clicks
     /// on this object.
     /// </summary>
     private void OnMouseDown()
     {
+        //Debug.Log("clicked");
         Clicks += bag.Roll();
     }
 

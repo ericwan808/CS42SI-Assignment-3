@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class DiceBagScript : MonoBehaviour
 {
@@ -11,6 +12,8 @@ public class DiceBagScript : MonoBehaviour
     public Sprite D8;
     public Sprite D12;
     public Sprite D20;
+
+    public Clickable clicker;
 
     private Dictionary<int, (int num, Sprite sprite)> dice;
 
@@ -54,8 +57,11 @@ public class DiceBagScript : MonoBehaviour
             if (dice[val].num == 0)
             {
                 largestDice = dice[val].sprite;
+                clicker.updateSprite(largestDice);
             }
             dice[val] = (dice[val].num + 1, dice[val].sprite);
+
+            //Debug.Log(dice[val]);
         }
     }
 
