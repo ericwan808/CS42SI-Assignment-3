@@ -395,7 +395,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 21300000, guid: 81d680c3cc36f094394f867a98447723, type: 3}
+  m_Sprite: {fileID: 6254631569403418398, guid: d20ebf0165bafe7479c35c15d9229dd7, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -415,7 +415,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.2, y: 0.2, z: 1}
+  m_LocalScale: {x: 3, y: 3, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1142463720}
@@ -471,13 +471,13 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 13.41, y: 20.541271}
+    oldSize: {x: 1, y: 1}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 13.41, y: 20.541271}
+  m_Size: {x: 2, y: 2}
   m_EdgeRadius: 0
 --- !u!1 &1142463719
 GameObject:
@@ -540,13 +540,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 80d2debed626e574fb3d9da078af3d25, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  largestDice: {fileID: 21300000, guid: 81d680c3cc36f094394f867a98447723, type: 3}
-  D1: {fileID: 21300000, guid: 81d680c3cc36f094394f867a98447723, type: 3}
+  largestDice: {fileID: 6254631569403418398, guid: d20ebf0165bafe7479c35c15d9229dd7, type: 3}
+  D1: {fileID: 6254631569403418398, guid: d20ebf0165bafe7479c35c15d9229dd7, type: 3}
   D4: {fileID: 3134480032875123597, guid: 1821656676dfa7146ac027e6f1f87cac, type: 3}
   D6: {fileID: -8892125353589414764, guid: 1821656676dfa7146ac027e6f1f87cac, type: 3}
   D8: {fileID: -8823051889986610539, guid: 1821656676dfa7146ac027e6f1f87cac, type: 3}
   D12: {fileID: -1601116143774048067, guid: 1821656676dfa7146ac027e6f1f87cac, type: 3}
   D20: {fileID: 6540990545638096089, guid: 1821656676dfa7146ac027e6f1f87cac, type: 3}
+  clicker: {fileID: 840348585}
 --- !u!4 &1169926625
 Transform:
   m_ObjectHideFlags: 0
