@@ -49,7 +49,7 @@ public class BuyDice : MonoBehaviour
         {
             Clickable.Clicks -= price;
             bag.AddDice(diceValue);
-            price = Math.Round( Math.Pow(price, 1.05), 2 );
+            price = Math.Round( Math.Pow(price, 1.1), 2 );
         }
     }
 }
