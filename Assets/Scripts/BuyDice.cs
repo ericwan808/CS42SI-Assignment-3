@@ -38,7 +38,9 @@ public class BuyDice : MonoBehaviour
         if (ColorUtility.TryParseHtmlString(hex, out Color c))
             button.image.color = c;
 
-        priceText.text = $"D{diceValue}:{price:C}";
+        // priceText.text = $"D{diceValue}:{price:C}";  # Old priceText, updated below to include number of dice already owned.
+        // priceText.text = $"D{diceValue}:{price:C}\nOwned: {bag.CountOf(diceValue)}";
+        priceText.text = $"D{diceValue}:{price:C} (x{bag.CountOf(diceValue)})";
     }
 
     private void OnButtonClicked()

@@ -43,6 +43,12 @@ public class DiceBagScript : MonoBehaviour
         }
         return total;
     }
+    
+    // Returns how many dice with the given number of sides are in the bag.
+    public int CountOf(int sides)
+    {
+        return dice.TryGetValue(sides, out var entry) ? entry.num : 0;
+    }
 
     // Adds one die with the given value to the bag.
     // Values below 1 are ignored.
