@@ -17,6 +17,18 @@ public class DiceBagScript : MonoBehaviour
 
     private Dictionary<int, (int num, Sprite sprite)> dice;
 
+    // Every colored version of each die type, keyed by number of sides.
+    // Loaded from the sprite sheets in Assets/Sprites/Resources/DiceColors.
+    private Dictionary<int, List<Sprite>> colorVariants;
+
+    // Every dice sheet is sliced the same way; this maps slice index -> sides.
+    private static readonly Dictionary<int, int> sliceToSides = new Dictionary<int, int> {
+        { 0, 20 },
+        { 1, 12 },
+        { 4, 8 },
+        { 5, 6 },
+        { 6, 4 }};
+
 
     void Awake()
     {
@@ -27,6 +39,24 @@ public class DiceBagScript : MonoBehaviour
             { 8, (0, D8)},
             { 12, (0, D12)},
             { 20, (0, D20)}};
+
+        LoadColorVariants();
+    }
+
+    private void LoadColorVariants()
+    {
+        colorVariants = new Dictionary<int, List<Sprite>>();
+        foreach (Sprite sprite in Resources.LoadAll<Sprite>("DiceColors"))
+        {
+            // Slices are named like "small_dice_redyellow_4"; the number is the slice index.
+            string suffix = sprite.name.Substring(sprite.name.LastIndexOf('_') + 1);
+            if (!int.TryParse(suffix, out int slice) || !sliceToSides.TryGetValue(slice, out int sides))
+                continue;
+
+            if (!colorVariants.ContainsKey(sides))
+                colorVariants[sides] = new List<Sprite>();
+            colorVariants[sides].Add(sprite);
+        }
     }
 
     public int Roll()
@@ -64,7 +94,14 @@ public class DiceBagScript : MonoBehaviour
             {
                 largestDice = dice[val].sprite;
             }
-            dice[val] = (dice[val].num + 1, dice[val].sprite);
+            // A die type keeps its default color on its first purchase; buying
+            // another one gives just this type a new random color.
+            Sprite sprite = dice[val].sprite;
+            if (dice[val].num > 0 && colorVariants.TryGetValue(val, out List<Sprite> variants) && variants.Count > 0)
+            {
+                sprite = variants[Random.Range(0, variants.Count)];
+            }
+            dice[val] = (dice[val].num + 1, sprite);
 
             // Rebuild the clicker so it shows every owned die type and its count.
             clicker.RefreshDice();
