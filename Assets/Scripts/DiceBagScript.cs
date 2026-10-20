@@ -63,12 +63,29 @@ public class DiceBagScript : MonoBehaviour
             if (dice[val].num == 0)
             {
                 largestDice = dice[val].sprite;
-                clicker.updateSprite(largestDice);
             }
             dice[val] = (dice[val].num + 1, dice[val].sprite);
 
+            // Rebuild the clicker so it shows every owned die type and its count.
+            clicker.RefreshDice();
+
             //Debug.Log(dice[val]);
         }
+    }
+
+    // Returns every die type the player owns at least one of, smallest first.
+    public List<(int sides, int num, Sprite sprite)> OwnedDice()
+    {
+        var owned = new List<(int sides, int num, Sprite sprite)>();
+        foreach (KeyValuePair<int, (int num, Sprite sprite)> pair in dice)
+        {
+            if (pair.Value.num > 0)
+            {
+                owned.Add((pair.Key, pair.Value.num, pair.Value.sprite));
+            }
+        }
+        owned.Sort((a, b) => a.sides.CompareTo(b.sides));
+        return owned;
     }
 
     public Sprite getSprite(int val)
