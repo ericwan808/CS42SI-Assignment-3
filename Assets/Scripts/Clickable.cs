@@ -36,6 +36,8 @@ public class Clickable : MonoBehaviour
     private float cellSize = 1f;
     private Coroutine shakeRoutine;
 
+    [SerializeField] private DiceRollingSFXManager audioManager;
+
     private void Awake()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
@@ -135,8 +137,8 @@ public class Clickable : MonoBehaviour
     /// </summary>
     private void OnMouseDown()
     {
-        //Debug.Log("clicked");
         Clicks += bag.Roll();
+        audioManager.playDice(bag.getTotalDice());
 
         // Restart the shake if the player clicks again mid-shake.
         if (shakeRoutine != null)

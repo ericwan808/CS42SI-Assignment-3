@@ -4,8 +4,6 @@ using UnityEngine.UIElements;
 
 public class DiceBagScript : MonoBehaviour
 {
-
-    public Sprite largestDice;
     public Sprite D1;
     public Sprite D4;
     public Sprite D6;
@@ -29,7 +27,9 @@ public class DiceBagScript : MonoBehaviour
         { 5, 6 },
         { 6, 4 }};
 
-
+    // EW
+    // aparently Awake runs before Start,
+    // so sprites needs to be set here before ButtonSpawner tries to access it on Start
     void Awake()
     {
         dice = new Dictionary<int, (int num, Sprite sprite)> {
@@ -59,16 +59,18 @@ public class DiceBagScript : MonoBehaviour
         }
     }
 
+    // EW
+    // rolls all dice in bag and returns sum
     public int Roll()
     {
         int total = 0;
         foreach (KeyValuePair<int, (int, Sprite)> pair in dice)
         {
-            int value = pair.Key;    // sides on the die
-            int amount = pair.Value.Item1; // how many of them
+            int value = pair.Key;
+            int amount = pair.Value.Item1;
             for (int i = 0; i < amount; i++)
             {
-                total += Random.Range(1, value + 1); // int upper bound is exclusive
+                total += Random.Range(1, value + 1);
             }
         }
         return total;
@@ -90,10 +92,6 @@ public class DiceBagScript : MonoBehaviour
 
         if (dice.ContainsKey(val))
         {
-            if (dice[val].num == 0)
-            {
-                largestDice = dice[val].sprite;
-            }
             // A die type keeps its default color on its first purchase; buying
             // another one gives just this type a new random color.
             Sprite sprite = dice[val].sprite;
@@ -105,8 +103,6 @@ public class DiceBagScript : MonoBehaviour
 
             // Rebuild the clicker so it shows every owned die type and its count.
             clicker.RefreshDice();
-
-            //Debug.Log(dice[val]);
         }
     }
 
@@ -125,6 +121,8 @@ public class DiceBagScript : MonoBehaviour
         return owned;
     }
 
+    // EW
+    // gets the sprite of a particular dice value
     public Sprite getSprite(int val)
     {
         if (dice.ContainsKey(val))
@@ -134,5 +132,18 @@ public class DiceBagScript : MonoBehaviour
         {
             return dice[0].sprite;
         }
+    }
+
+    // EW
+    // gets total number of dice in the bag
+    public int getTotalDice()
+    {
+        int sum = 0;
+        foreach (KeyValuePair<int, (int num, Sprite sprite)> pair in dice)
+        {
+            sum += pair.Value.num;
+        }
+
+        return sum;
     }
 }

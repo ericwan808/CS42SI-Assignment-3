@@ -162,9 +162,9 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
-  m_Resource: {fileID: 8300000, guid: 7fd52d951a6e913f199e12b438579f44, type: 3}
+  m_Resource: {fileID: 8300000, guid: 5ba452c48302eb74c867115df6c6e008, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.5
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -352,6 +352,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9edba4e77f3284691adfdbe0a7432b9f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
+  sources:
+  - {fileID: 300454770}
+  - {fileID: 1139234526}
+  - {fileID: 1868848825}
+  - {fileID: 1906773566}
 --- !u!4 &710869074
 Transform:
   m_ObjectHideFlags: 0
@@ -614,6 +619,7 @@ MonoBehaviour:
   shakeDuration: 0.3
   shakeDistance: 0.08
   shakeAngle: 20
+  audioManager: {fileID: 710869073}
 --- !u!61 &840348586
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -703,9 +709,9 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
-  m_Resource: {fileID: 0}
+  m_Resource: {fileID: 8300000, guid: 7b40eb5afa461e67daf96c40baa3eec9, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.5
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -1437,9 +1443,9 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
-  m_Resource: {fileID: 0}
+  m_Resource: {fileID: 8300000, guid: 68fb87658dde2c048b27516407241d92, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.5
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -1566,9 +1572,9 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
-  m_Resource: {fileID: 0}
+  m_Resource: {fileID: 8300000, guid: 2b95ea712009bf743bb7e34cf44816d0, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.5
   m_Pitch: 1
   Loop: 0
   Mute: 0
