@@ -856,7 +856,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 80d2debed626e574fb3d9da078af3d25, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  largestDice: {fileID: 6254631569403418398, guid: d20ebf0165bafe7479c35c15d9229dd7, type: 3}
   D1: {fileID: 6254631569403418398, guid: d20ebf0165bafe7479c35c15d9229dd7, type: 3}
   D4: {fileID: 3134480032875123597, guid: 1821656676dfa7146ac027e6f1f87cac, type: 3}
   D6: {fileID: -8892125353589414764, guid: 1821656676dfa7146ac027e6f1f87cac, type: 3}
@@ -1063,7 +1062,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: '::'
   buttonPrefab: {fileID: 8770680882186039826, guid: 4177f1a5f8f03d94b8ce5ad204760175, type: 3}
-  buttonContainer: {fileID: 812223032}
+  canvas: {fileID: 812223032}
   bag: {fileID: 1169926624}
 --- !u!1 &1406060093
 GameObject:
