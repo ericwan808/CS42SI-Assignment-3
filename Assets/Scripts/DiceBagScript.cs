@@ -13,6 +13,9 @@ public class DiceBagScript : MonoBehaviour
 
     public Clickable clicker;
 
+    // Fired whenever a die is added, so other scripts can react to the new bag.
+    public event System.Action DiceChanged;
+
     private Dictionary<int, (int num, Sprite sprite)> dice;
 
     // Every colored version of each die type, keyed by number of sides.
@@ -103,6 +106,8 @@ public class DiceBagScript : MonoBehaviour
 
             // Rebuild the clicker so it shows every owned die type and its count.
             clicker.RefreshDice();
+
+            DiceChanged?.Invoke();
         }
     }
 
