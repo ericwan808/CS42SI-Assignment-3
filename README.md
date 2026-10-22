@@ -10,7 +10,7 @@
 
 ### Background
 
-- Carta Marina_ by Olaus Magnus (1539), public domain
+- Carta Marina by Olaus Magnus (1539), public domain
   - Source: https://www.publicdomainpictures.net/en/view-image.php?image=151697
 
 ### Made by
