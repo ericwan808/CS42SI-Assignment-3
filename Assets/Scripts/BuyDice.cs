@@ -51,7 +51,7 @@ public class BuyDice : MonoBehaviour
             // buy dice if possible, add to bag, and increase price of next purchase
             Clickable.Clicks -= price;
             bag.AddDice(diceValue);
-            price = Math.Round( Math.Pow(price, 1.1), 2 );
+            price = Math.Round( price*1.1 , 2 );
         }
     }
 }
