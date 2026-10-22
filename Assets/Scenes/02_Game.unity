@@ -358,7 +358,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 20, y: -20}
-  m_SizeDelta: {x: 460, y: 110}
+  m_SizeDelta: {x: 460, y: 150}
   m_Pivot: {x: 0, y: 1}
 --- !u!222 &482915309
 CanvasRenderer:
@@ -868,11 +868,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bag: {fileID: 1169926624}
+  debugAddClicks: 1000000
   maxColumns: 3
   shakeDuration: 0.3
   shakeDistance: 0.08
   shakeAngle: 20
   audioManager: {fileID: 710869073}
+  bagPadding: 0.15
+  bagTopSize: 0.45
+  bagPixelsPerUnit: 256
+  bagOpacity: 0.925
 --- !u!61 &840348586
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -2202,7 +2207,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 50, y: -50}
-  m_SizeDelta: {x: 400, y: 50}
+  m_SizeDelta: {x: 400, y: 90}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1710399222
 MonoBehaviour:

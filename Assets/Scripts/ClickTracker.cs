@@ -21,7 +21,9 @@ public class ClickTracker : MonoBehaviour
     {
         // See how many clicks the player has, stored in the static
         // variable `Clickable.Clicks`.
-        _trackingText.text = "Clicks: " + Clickable.Clicks;
+        string lastRolled = Clickable.LastRoll?.ToString() ?? "-";
+        _trackingText.text = "Clicks: " + Clickable.Clicks
+            + "\n<size=80%>Last rolled: " + lastRolled + "</size>";
     }
 
 }
